@@ -11,7 +11,7 @@ interface Payload {
   [propName: string]: any;
 }
 
-interface TodoListType {
+export interface TodoListType {
   todoList: string[];
 }
 
@@ -51,6 +51,8 @@ const actions: ActionTree<TodoListType, RootState> = {
     );
   },
   removeItem: async ({ commit }: Context, { index }: Payload) => {
+    console.log(11111);
+    console.log('index', index);
     await Promise.resolve(
       setTimeout(() => {
         commit(REMOVE_ITEM, index);

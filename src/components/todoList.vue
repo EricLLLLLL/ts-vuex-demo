@@ -5,12 +5,14 @@
         <el-row :gutter="18">
           <el-col :span="18">
             <el-input
+              id='todo'
               v-model="todo"
               placeholder="请输入内容"
             ></el-input>
           </el-col>
           <el-col :span="2">
             <el-button
+              id="add"
               type="primary"
               icon="el-icon-circle-plus-outline"
               @click="addItem"
@@ -22,7 +24,7 @@
       </div>
       <div
         v-for="(item,index) in todoList"
-        :key="item"
+        :key="index"
         class="text item"
         @click="removeItem(index)"
       >{{ item }}</div>
@@ -41,17 +43,15 @@ import { Component, Prop, Vue, Emit } from 'vue-property-decorator';
 export default class HelloWorld extends Vue {
   public todo: string = '';
 
-  @Prop({ default: [] }) private readonly todoList!: string[];
+  @Prop({ default: () => [] }) private readonly todoList!: string[];
 
   get todoLength(): number {
     return this.todoList.length;
   }
 
   @Emit()
-  private addItem(): string | undefined {
-    if (this.todo) {
-      return this.todo;
-    }
+  private addItem(): string {
+    return `${this.todo}`;
   }
 
   @Emit('removeItem')
